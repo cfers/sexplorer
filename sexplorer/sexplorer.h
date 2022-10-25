@@ -23,7 +23,13 @@ private Q_SLOTS:
 private:
     Ui::sexplorerClass ui;
 	QBoxLayout* m_tabbarLayout;
-	QTabWidget* m_tabwidgetLeft;
-	QTabWidget* m_tabwidgetRight;
-	QMap<QAbstractItemModel*, QAbstractItemView*> mapModel2View;
+
+	struct Data
+	{
+		QAbstractItemView* view = nullptr;
+		QLineEdit*	editCurDir = nullptr;
+
+	};
+
+	QMap<QAbstractItemModel*, Data> mapModel2Data;
 };

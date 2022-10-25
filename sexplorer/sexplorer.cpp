@@ -54,7 +54,8 @@ QBoxLayout* sexplorer::CreatePanel()
 		view->setAlternatingRowColors(true);
 		view->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
 
-		mapModel2View[model] = view;
+		mapModel2Data[model].view = view;
+		mapModel2Data[model].editCurDir = edit;
 		tabwidget->addTab(view, icon, QString(u8"窗口%1").arg(i));
 	}
 
@@ -79,17 +80,31 @@ void sexplorer::onTableDoubleClicked(const QModelIndex& index)
 		return;
 	}
 
-	if (mapModel2View.contains(model))
+	if (mapModel2Data.contains(model))
 	{
-		auto view = mapModel2View.value(model);
+		auto& data = mapModel2Data.value(model);
+		auto view = data.view;
 		auto path = fileSysModel->filePath(index);
 		view->setRootIndex(fileSysModel->setRootPath(path));
-		
-		auto curDirName = QDir(path).dirName();
-		auto tab = dynamic_cast<QTabWidget*>(view->parent()->parent());
-		if (tab != nullptr)
+	
+		bool isFile = false;
+		QFileInfo finfo(path);
+		QString absDirName = finfo.absoluteFilePath();
+		if (!finfo.isDir())
 		{
-			tab->setTabText(tab->indexOf(view), curDirName);
+			isFile = true;
+			absDirName = finfo.absolutePath();
+		}
+		data.editCurDir->setText(absDirName);
+
+		if (!isFile)
+		{
+			auto curDirName = QDir(path).dirName();
+			auto tab = dynamic_cast<QTabWidget*>(view->parent()->parent());
+			if (tab != nullptr)
+			{
+				tab->setTabText(tab->indexOf(view), curDirName);
+			}
 		}
 	}
 }
