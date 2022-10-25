@@ -15,10 +15,15 @@ public:
     sexplorer(QWidget *parent = Q_NULLPTR);
 
 private:
-	QTabWidget* CreateTabWidget();
+	QBoxLayout* CreatePanel();
+
+private Q_SLOTS:
+	void onTableDoubleClicked(const QModelIndex& index);
+
 private:
     Ui::sexplorerClass ui;
 	QBoxLayout* m_tabbarLayout;
 	QTabWidget* m_tabwidgetLeft;
 	QTabWidget* m_tabwidgetRight;
+	QMap<QAbstractItemModel*, QAbstractItemView*> mapModel2View;
 };
