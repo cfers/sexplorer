@@ -1,2 +1,2 @@
 # sexplorer
-sexy explorer? no, it is a simple explorer for windows!
+sexy explorer? no, it is a simple explorer!
