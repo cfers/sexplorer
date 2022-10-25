@@ -15,11 +15,10 @@ public:
     sexplorer(QWidget *parent = Q_NULLPTR);
 
 private:
-	int64_t NewExplorer();
-
+	QTabWidget* CreateTabWidget();
 private:
     Ui::sexplorerClass ui;
-	std::vector<std::shared_ptr<QProcess>>	m_vecProcess;
 	QBoxLayout* m_tabbarLayout;
-	QTabWidget* m_tabwidget;
+	QTabWidget* m_tabwidgetLeft;
+	QTabWidget* m_tabwidgetRight;
 };
