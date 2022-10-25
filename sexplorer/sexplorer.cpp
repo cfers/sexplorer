@@ -15,6 +15,9 @@ sexplorer::sexplorer(QWidget *parent)
     : QMainWindow(parent)
 {
     ui.setupUi(this);
+
+	// set icon
+	this->setWindowIcon(QApplication::style()->standardIcon(QStyle::SP_DirHomeIcon));
 	
 	// main layout
 	auto* mainlayout = new QVBoxLayout;
