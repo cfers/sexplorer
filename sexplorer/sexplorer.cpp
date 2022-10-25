@@ -41,14 +41,14 @@ QBoxLayout* sexplorer::CreatePanel()
 	QTabWidget* tabwidget = new QTabWidget;
 	
 	auto icon = QApplication::style()->standardIcon(QStyle::StandardPixmap::SP_DirIcon);
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 2; i++)
 	{
 		auto model = new FileTableModel;
-		model->setRootPath(qApp->applicationDirPath());
-		
+
 		auto* view = new QTreeView;
 		connect(view, SIGNAL(doubleClicked(const QModelIndex&)), this, SLOT(onTableDoubleClicked(const QModelIndex&)));
 		view->setModel(model);
+		view->setRootIndex(model->setRootPath(qApp->applicationDirPath()));
 
 		view->setColumnWidth(0, 300);
 		view->setAlternatingRowColors(true);
@@ -56,7 +56,7 @@ QBoxLayout* sexplorer::CreatePanel()
 
 		mapModel2Data[model].view = view;
 		mapModel2Data[model].editCurDir = edit;
-		tabwidget->addTab(view, icon, QString(u8"窗口%1").arg(i));
+		tabwidget->addTab(view, icon, model->rootDirectory().dirName());
 	}
 
 	QVBoxLayout* layout = new QVBoxLayout;
