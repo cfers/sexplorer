@@ -16,10 +16,11 @@ public:
 
 private:
 	QBoxLayout* CreatePanel();
+	QAbstractItemView* CreateFileView(QTabWidget* tabWidget);
 	void NavigateTo(const QString& dir);
 
 private Q_SLOTS:
-	void onTableDoubleClicked(const QModelIndex& index);
+	void onFileViewDoubleClicked(const QModelIndex& index);
 	void onTabBarClicked(int index);
 
 private:
@@ -30,7 +31,6 @@ private:
 	{
 		QAbstractItemView* view = nullptr;
 		QLineEdit*	editCurDir = nullptr;
-
 	};
 
 	QMap<QAbstractItemModel*, Data> mapModel2Data;

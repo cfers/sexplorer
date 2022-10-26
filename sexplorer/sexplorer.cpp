@@ -25,6 +25,7 @@ sexplorer::sexplorer(QWidget *parent)
 	
 	// tabwidget
 	auto tabPanelLayout = new QHBoxLayout;
+	tabPanelLayout->setSpacing(1);
 	tabPanelLayout->addLayout(CreatePanel(), 1);
 	tabPanelLayout->addLayout(CreatePanel(), 1);
 	mainlayout->addLayout(tabPanelLayout);
@@ -43,31 +44,34 @@ QBoxLayout* sexplorer::CreatePanel()
 	naviLayout->addWidget(edit);
 
 	QTabWidget* tabwidget = new QTabWidget;
-	connect(tabwidget, SIGNAL(tabBarClicked(int)), this, SLOT(onTabBarClicked(int)));
-	
-	auto icon = QApplication::style()->standardIcon(QStyle::StandardPixmap::SP_DirIcon);
-	for (int i = 0; i < 2; i++)
-	{
-		auto model = new FileTableModel;
-
-		auto* view = new QTreeView;
-		connect(view, SIGNAL(doubleClicked(const QModelIndex&)), this, SLOT(onTableDoubleClicked(const QModelIndex&)));
-		view->setModel(model);
-		view->setRootIndex(model->setRootPath(qApp->applicationDirPath()));
-
-		view->setColumnWidth(0, 300);
-		view->setAlternatingRowColors(true);
-		view->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
-
-		mapModel2Data[model].view = view;
-		mapModel2Data[model].editCurDir = edit;
-		tabwidget->addTab(view, icon, model->rootDirectory().dirName());
-	}
+	CreateFileView(tabwidget);
+	connect(tabwidget, SIGNAL(tabBarDoubleClicked(int)), this, SLOT(onTabBarClicked(int)));
 
 	QVBoxLayout* layout = new QVBoxLayout;
+	layout->setSpacing(2);
 	layout->addLayout(naviLayout);
 	layout->addWidget(tabwidget);
 	return layout;
+}
+
+QAbstractItemView* sexplorer::CreateFileView(QTabWidget* tabWidget)
+{
+	auto* view = new QTreeView;
+	auto model = new FileTableModel;
+	view->setModel(model);
+	view->setRootIndex(model->setRootPath(qApp->applicationDirPath()));
+	view->setColumnWidth(0, 300);
+	view->setAlternatingRowColors(true);
+	view->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
+	connect(view, SIGNAL(doubleClicked(const QModelIndex&)), this, SLOT(onFileViewDoubleClicked(const QModelIndex&)));
+
+	mapModel2Data[model].view = view;
+	mapModel2Data[model].editCurDir = nullptr;
+
+	auto icon = QApplication::style()->standardIcon(QStyle::StandardPixmap::SP_DirIcon);
+	tabWidget->addTab(view, icon, model->rootDirectory().dirName());
+
+	return view;
 }
 
 void sexplorer::NavigateTo(const QString& dir)
@@ -75,7 +79,7 @@ void sexplorer::NavigateTo(const QString& dir)
 
 }
 
-void sexplorer::onTableDoubleClicked(const QModelIndex& index)
+void sexplorer::onFileViewDoubleClicked(const QModelIndex& index)
 {
 	auto cmodel = index.model();
 	if (cmodel == nullptr)
@@ -105,7 +109,11 @@ void sexplorer::onTableDoubleClicked(const QModelIndex& index)
 			isFile = true;
 			absDirName = finfo.absolutePath();
 		}
-		data.editCurDir->setText(absDirName);
+
+		if (data.editCurDir)
+		{
+			data.editCurDir->setText(absDirName);
+		}
 
 		if (!isFile)
 		{
@@ -122,10 +130,12 @@ void sexplorer::onTableDoubleClicked(const QModelIndex& index)
 void sexplorer::onTabBarClicked(int index)
 {
 	auto sendObject = sender();
-	auto tabWidget = dynamic_cast<QTabWidget*>(sender());
+	auto tabWidget = dynamic_cast<QTabWidget*>(sendObject);
 	if (tabWidget == nullptr)
 	{
 		return;
 	}
+
+	CreateFileView(tabWidget);
 }
 

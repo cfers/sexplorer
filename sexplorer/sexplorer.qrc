@@ -1,4 +1,9 @@
 <RCC>
-    <qresource prefix="sexplorer">
+    <qresource prefix="/sexplorer">
+        <file>res/blank0.qss</file>
+        <file>res/blank1.qss</file>
+        <file>res/black.qss</file>
+        <file>res/blue.qss</file>
+        <file>res/green.qss</file>
     </qresource>
 </RCC>

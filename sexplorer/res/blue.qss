@@ -1,0 +1,454 @@
+﻿/**  皮肤blue
+标题栏底色                           rgb(11,66,96);
+标题栏下边线 按钮pressed checked     rgb(11,39,72);
+工具栏上边线 工具栏分割线             rgb(20,72,132);
+文本颜色                            rgb(255,255,255);
+文本提示                            rgb(160,160,160);
+按钮hover                           rgb(23,83,152);
+**/
+
+
+/**********************通用设置 字体 背景色**************************************/
+QWidget{
+    font: 9pt "微软雅黑";
+}
+
+QLabel#label_version{
+    color:white;
+}
+
+
+/*********************外边框********************/
+QWidget#wid_back{
+    border: 2px solid  rgb(11,66,96);
+}
+
+/*********************外边框********************/
+QWidget#wid_pop_back{
+    background-color: white;
+    border: 2px solid  rgb(11,66,96);
+}
+
+/***********标题栏颜色***********************/
+QWidget#wid_titleBar{
+    background-color:  rgb(11,66,96);
+    border-bottom:1px solid rgb(11,39,72);
+}
+
+/*************分割线********************************/
+QFrame#frame_vline{
+    margin:5px;
+    color:rgb(20,72,132);
+}
+QFrame#frame_hline{
+    margin:5px;
+    color:rgb(20,72,132);
+}
+
+/******************菜单栏和菜单样式**************************/
+QMenuBar{
+    border:none;
+    background-color: transparent;
+}
+QMenuBar::item {
+    margin:3px;
+    padding: 2px 5px;
+    background: transparent;
+    color:rgb(255,255,255);
+    spacing: 3px;
+}
+QMenuBar::item:hover, QMenuBar::item:selected, QMenuBar::item:pressed{
+    color: rgb(11,66,96);
+    background: rgb(255,255,255);
+}
+/*QMenu{
+    background-color:  rgb(11,66,96);
+}
+QMenu::item {
+    background-color: transparent;
+    color:rgb(255,255,255);
+}
+QMenu::item:selected {
+    background-color:  rgb(11,66,96);
+}*/
+
+
+/***********************工具栏样式*****************************/
+QToolBar {
+    border:none;
+    border-top:1px solid rgb(20,72,132);
+    background-color:  rgb(11,66,96);
+    padding: 5px;
+    spacing: 3px;
+}
+QToolBar::handle {
+    width:0px;
+    height:0px;
+}
+QToolBar::separator{
+    width:1px;
+    margin:5px;
+    background:rgb(20,72,132);
+}
+
+/****************************分割线**********************/
+QSplitter::handle {
+      background: rgb(11,66,96);
+}
+
+
+
+/***********************工具栏按钮*************************/
+QPushButton#ToolBtn_Comment{
+    image: url(:/images/btn_win_skin.png);
+}
+
+/***************************窗口按钮***********************/
+QPushButton#btn_win_skin,QPushButton#btn_win_min,QPushButton#btn_win_max,QPushButton#btn_win_close{
+    padding:2px 2px;
+    background:transparent;
+    border:none;
+}
+QPushButton#btn_win_skin{
+    image: url(:/images/btn_win_skin.png);
+}
+QPushButton#btn_win_min{
+    image: url(:/images/btn_win_min.png);
+}
+QPushButton#btn_win_max{
+    image: url(:/images/btn_win_normal.png);
+}
+QPushButton#btn_win_close{
+    image: url(:/images/btn_win_close.png);
+}
+QPushButton:hover#btn_win_skin,QPushButton:hover#btn_win_min,QPushButton:hover#btn_win_max{
+    background: rgb(23,83,152);
+}
+QPushButton:hover#btn_win_close{
+    background: red;
+}
+
+/*******************ActionButton**************************/
+QPushButton#btn_action{
+    background: rgb(200,200,200);
+    color:black;
+}
+QPushButton:hover#btn_action{
+    background: rgb(23,83,152);
+    color:white;
+}
+QPushButton:pressed#btn_action{
+    background: rgb(11,39,72);
+    color:white;
+}
+
+
+
+/****************底部bottombar******************************/
+QWidget#wid_bottomBarBack{
+    background-color: rgb(11,66,96);
+    border:none;
+}
+
+
+/***************日志显示输出窗口****************************/
+QPushButton#btnShowLogInfo{
+    width:24px;
+    height:24px;
+    padding:2px 2px;
+    background:transparent;
+    border:none;
+    image: url(:/images/btn_output_info.png);
+}
+QPushButton:hover#btnShowLogInfo{
+    background: rgb(23,83,152);
+}
+QPushButton:checked#btnShowLogInfo{
+    background: rgb(11,39,72);
+}
+QPushButton#btnShowLogDebug{
+    width:24px;
+    height:24px;
+    padding:2px 2px;
+    background:transparent;
+    border:none;
+    image: url(:/images/btn_output_debug.png);
+}
+QPushButton:hover#btnShowLogDebug{
+    background: rgb(23,83,152);
+}
+QPushButton:checked#btnShowLogDebug{
+    background: rgb(11,39,72);
+}
+QPushButton#btnShowLogWarning{
+    width:24px;
+    height:24px;
+    padding:2px 2px;
+    background:transparent;
+    border:none;
+    image: url(:/images/btn_output_warning.png);
+}
+QPushButton:hover#btnShowLogWarning{
+    background: rgb(23,83,152);
+}
+QPushButton:checked#btnShowLogWarning{
+    background: rgb(11,39,72);
+}
+QPushButton#btnShowLogErr{
+    width:24px;
+    height:24px;
+    padding:2px 2px;
+    background:transparent;
+    border:none;
+    image: url(:/images/btn_output_err.png);
+}
+QPushButton:hover#btnShowLogErr{
+    background: rgb(23,83,152);
+}
+QPushButton:checked#btnShowLogErr{
+    background: rgb(11,39,72);
+}
+/***********************QLabel****************************/
+QLabel#Label_NoticeOpen{
+    font: 14pt "微软雅黑";
+    background-color:transparent;
+    color:rgb(160,160,160);
+}
+QLabel#label_titleBar{
+    color:rgb(255,255,255);
+    padding-left:3px;
+}
+
+
+/****************help编辑框*******************/
+QLineEdit#lineEdit_help{
+    border:none;
+    color:rgb(23,83,152);
+}
+
+
+/*******************导航窗口************************/
+QStackedWidget#stackedWid_navi{
+    border:none;
+}
+
+/********************输出窗口hide按钮****************************/
+QPushButton#btn_hide_left{
+    padding:4px;
+    background:transparent;
+    border:none;
+    image: url(:/images/btn_hide_left.png);
+}
+QPushButton:hover#btn_hide_left{
+    background:rgb(23,83,152);
+}
+QPushButton:pressed#btn_hide_left{
+    background:rgb(11,39,72);
+}
+
+QPushButton#btn_hide_down{
+    padding:4px;
+    background:transparent;
+    border:none;
+    image: url(:/images/btn_hide_down.png);
+}
+QPushButton:hover#btn_hide_down{
+    background:rgb(23,83,152);
+}
+QPushButton:pressed#btn_hide_down{
+    background:rgb(11,39,72);
+}
+
+QPushButton#btn_close{
+    padding:4px;
+    background:transparent;
+    border:none;
+    image: url(:/images/close.png);
+}
+QPushButton:hover#btn_close{
+    background:rgb(23,83,152);
+}
+QPushButton:pressed#btn_close{
+    background:rgb(11,39,72);
+}
+
+
+QPushButton#out_btn_pre{
+    padding:4px;
+    background:transparent;
+    border:none;
+    image: url(:/images/btn_pre.png);
+}
+QPushButton#out_btn_pre:!enabled{
+    image: url(:/images/btn_pre_dis.png);
+}
+QPushButton:hover#out_btn_pre{
+    background:rgb(23,83,152);
+}
+QPushButton:pressed#out_btn_pre{
+    background:rgb(11,39,72);
+}
+
+QPushButton#out_btn_next{
+    padding:4px;
+    background:transparent;
+    border:none;
+    image: url(:/images/btn_next.png);
+}
+QPushButton#out_btn_next:!enabled{
+    image: url(:/images/btn_next_dis.png);
+}
+QPushButton:hover#out_btn_next{
+    background:rgb(23,83,152);
+}
+QPushButton:pressed#out_btn_next{
+    background:rgb(11,39,72);
+}
+
+QPushButton#btn_show_navi{
+    padding:4px;
+    background:transparent;
+    border:none;
+    image: url(:/images/btn_show_navi.png);
+}
+QPushButton:checked#btn_show_navi{
+    background:rgb(11,39,72);
+}
+/********************输出窗口clear按钮****************************/
+QPushButton#btn_clear{
+    padding:4px;
+    background:transparent;
+    border:none;
+    image: url(:/images/btn_clear.png);
+}
+QPushButton#btn_clear:!enabled{
+    image: url(:/images/btn_clear_dis.png);
+}
+QPushButton:hover#btn_clear{
+    background:rgb(23,83,152);
+}
+QPushButton:pressed#btn_clear{
+    background:rgb(11,39,72);
+}
+
+/*********************输出窗口显示菜单************************/
+QPushButton#btn_outputMenu{
+    padding:0px;
+    background:transparent;
+    border:none;
+    image: url(:/images/mm.png);
+}
+
+/*********************QTreeView-项目视图*******************/
+QTreeView#treeView_project{
+    border:none;
+}
+QTreeView#TestFlowTreeView{
+    border:none;
+}
+QTreeView#CmdTreeView{
+    border:none;
+}
+
+/***********************QListView******************/
+QListView#ListViewNoBorder{
+    border:none;
+}
+QListView#ListViewBorderLeft{
+    border-left: 1px solid  rgb(11,66,96);
+    border-right:none;
+    border-top:none;
+    border-bottom:none;
+}
+QListView#ListViewBorderTop{
+    border-left: none;
+    border-right: none;
+    border-top: 1px solid  rgb(11,66,96);
+    border-bottom: none;
+}
+
+/********************QTableView*********************/
+QTableView{
+    border: 1px solid  rgb(11,66,96);
+}
+QTableView#TableViewNoBorder{
+    border:none;
+}
+QTableView#TableView_Node_Control{
+    border:none;
+}
+QTableView#TableView_Node_Param{
+    border:none;
+    border-right: 1px solid  rgb(11,66,96);
+}
+QTableView#TableView_Node_State{
+    border:none;
+}
+QTableView#TableView_ParamTable{
+    border:none;
+}
+QTableView#TableView_StateTable{
+    border:none;
+}
+QTableView#TableView_CmdTable{
+    border:none;
+}
+QTableView#TabView_CallStack{
+    border:none;
+}
+QTableView#TableView_AlarmTable{
+    border:none;
+}
+
+
+/*********************QTreeView*******************/
+QTreeView#treeViewNoBorder{
+    border:none;
+}
+QTreeView#TestFlowTreeView{
+    border:none;
+}
+QTreeView#CmdTreeView{
+    border-left: 1px solid  rgb(11,66,96);
+    border-right:none;
+    border-top:none;
+    border-bottom:none;
+}
+
+/***********************QListView******************/
+QListView#ListViewNoBorder{
+    border:none;
+}
+QListView#ListViewBorderLeft{
+    border-left: 1px solid  rgb(11,66,96);
+    border-right:none;
+    border-top:none;
+    border-bottom:none;
+}
+QListView#ListViewBorderTop{
+    border-left: none;
+    border-right: none;
+    border-top: 1px solid  rgb(11,66,96);
+    border-bottom: none;
+}
+
+
+/**********************底部输出窗口的切换按钮**************************/
+QCheckBox#BottomBarButton{
+    border:none;
+    color:rgb(255,255,255);
+    background:transparent;
+    border:none;
+    padding:1px 4px;
+}
+QCheckBox#BottomBarButton::indicator {
+    width: 0px;
+    height: 0px;
+}
+QCheckBox#BottomBarButton:hover{
+    background:rgb(23,83,152);
+}
+QCheckBox#BottomBarButton:checked{
+    background:rgb(11,39,72);
+}
+
