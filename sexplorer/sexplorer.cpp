@@ -38,10 +38,12 @@ QBoxLayout* sexplorer::CreatePanel()
 	// navigate bar
 	QHBoxLayout* naviLayout = new QHBoxLayout;
 	QLineEdit* edit = new QLineEdit;
-	naviLayout->addWidget(new QPushButton(QApplication::style()->standardIcon(QStyle::StandardPixmap::SP_ArrowRight), ""));
+	QPushButton* btnUp = new QPushButton(QApplication::style()->standardIcon(QStyle::StandardPixmap::SP_ArrowUp), "");
+	naviLayout->addWidget(btnUp);
 	naviLayout->addWidget(edit);
 
 	QTabWidget* tabwidget = new QTabWidget;
+	connect(tabwidget, SIGNAL(tabBarClicked(int)), this, SLOT(onTabBarClicked(int)));
 	
 	auto icon = QApplication::style()->standardIcon(QStyle::StandardPixmap::SP_DirIcon);
 	for (int i = 0; i < 2; i++)
@@ -66,6 +68,11 @@ QBoxLayout* sexplorer::CreatePanel()
 	layout->addLayout(naviLayout);
 	layout->addWidget(tabwidget);
 	return layout;
+}
+
+void sexplorer::NavigateTo(const QString& dir)
+{
+
 }
 
 void sexplorer::onTableDoubleClicked(const QModelIndex& index)
@@ -109,6 +116,16 @@ void sexplorer::onTableDoubleClicked(const QModelIndex& index)
 				tab->setTabText(tab->indexOf(view), curDirName);
 			}
 		}
+	}
+}
+
+void sexplorer::onTabBarClicked(int index)
+{
+	auto sendObject = sender();
+	auto tabWidget = dynamic_cast<QTabWidget*>(sender());
+	if (tabWidget == nullptr)
+	{
+		return;
 	}
 }
 

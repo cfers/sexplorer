@@ -16,9 +16,11 @@ public:
 
 private:
 	QBoxLayout* CreatePanel();
+	void NavigateTo(const QString& dir);
 
 private Q_SLOTS:
 	void onTableDoubleClicked(const QModelIndex& index);
+	void onTabBarClicked(int index);
 
 private:
     Ui::sexplorerClass ui;
