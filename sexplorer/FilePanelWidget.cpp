@@ -27,6 +27,10 @@ QBoxLayout* FilePanelWidget::CreatePanel()
 
 	editNavi_ = new QLineEdit;
 	editNavi_->setText(qApp->applicationDirPath());
+	connect(editNavi_, &QLineEdit::editingFinished, [&] 
+	{
+		NavigateTo(editNavi_->text());
+	});
 	naviLayout->addWidget(editNavi_);
 
 	connect(btnUp_, &QPushButton::clicked, [this] 
