@@ -84,13 +84,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <QtRcc Include="sexplorer.qrc" />
+    <QtUic Include="filepanelwidget.ui" />
     <QtUic Include="sexplorer.ui" />
     <QtMoc Include="sexplorer.h" />
+    <ClCompile Include="FilePanelWidget.cpp" />
     <ClCompile Include="model\FileTableModel.cpp" />
     <ClCompile Include="sexplorer.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="FilePanelWidget.h" />
     <ClInclude Include="model\FileTableModel.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

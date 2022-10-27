@@ -13,6 +13,13 @@ color: #BBBBBB;
 font-family: “Segoe UI”;
 }
 
+/* === QMainWindow == */
+QMainWindow {
+background-color: green;
+border: 1px solid black;
+}
+
+
 /* === QToolTip === */
 QToolTip {
 background-color: #000000;
@@ -892,28 +899,4 @@ background: #CCC;
 QTreeView::item:selected {
 background: #333;
 color: #AAA;
-}
-
-QTreeView::branch {
-}
-
-QTreeView::branch:has-siblings:adjoins-item {
-}
-
-QTreeView::branch:has-siblings:!adjoins-item {
-}
-
-QTreeView::branch:closed:has-children:has-siblings {
-}
-
-QTreeView::branch:has-children:!has-siblings:closed {
-}
-
-QTreeView::branch:!has-children:!has-siblings:adjoins-item {
-}
-
-QTreeView::branch:open:has-children:has-siblings {
-}
-
-QTreeView::branch:open:has-children:!has-siblings {
 }

@@ -39,9 +39,15 @@
     <ClCompile Include="model\FileTableModel.cpp">
       <Filter>Source Files\model</Filter>
     </ClCompile>
+    <ClCompile Include="FilePanelWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="sexplorer.h">
+      <Filter>Source Files</Filter>
+    </QtMoc>
+    <QtMoc Include="FilePanelWidget.h">
       <Filter>Source Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -49,5 +55,10 @@
     <ClInclude Include="model\FileTableModel.h">
       <Filter>Source Files\model</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="filepanelwidget.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
   </ItemGroup>
 </Project>
