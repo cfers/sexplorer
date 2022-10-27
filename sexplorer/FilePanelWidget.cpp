@@ -128,8 +128,6 @@ void FilePanelWidget::NavigateTo(const QModelIndex& index)
 		return;
 	}
 
-	auto& data = mapModel2Data_.value(model);
-	auto view = data.view;
 	auto path = fileSysModel->filePath(index);
 
 	NavigateTo(path);
