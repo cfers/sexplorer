@@ -6,6 +6,8 @@
 
 class QBoxLayout;
 class QTabWidget;
+class QPushButton;
+
 class FilePanelWidget : public QWidget
 {
     Q_OBJECT
@@ -17,6 +19,7 @@ private:
 	QBoxLayout* CreatePanel();
 	QAbstractItemView* CreateFileView(QTabWidget* tabWidget);
 	void NavigateTo(const QString& dir);
+	void NavigateTo(const QModelIndex& index);
 
 private Q_SLOTS:
 	void onFileViewDoubleClicked(const QModelIndex& index);
@@ -28,8 +31,10 @@ private:
 	struct Data
 	{
 		QAbstractItemView* view = nullptr;
-		QLineEdit*	editNavi = nullptr;
 	};
 
-	QMap<QAbstractItemModel*, Data> mapModel2Data;
+	QLineEdit* editNavi_;
+	QPushButton* btnUp_;
+	QTabWidget* tabWidget_;
+	QMap<QAbstractItemModel*, Data> mapModel2Data_;
 };

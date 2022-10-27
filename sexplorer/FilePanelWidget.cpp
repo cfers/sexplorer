@@ -1,13 +1,9 @@
 ﻿#include "FilePanelWidget.h"
 #include "model/FileTableModel.h"
-#include <assert.h>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
-#include <QListView>
 #include <QTreeView>
 #include <QFileSystemModel>
-#include <QDirModel>
-#include <QModelIndex>
 #include <QLineEdit>
 #include <QPushButton>
 
@@ -24,19 +20,31 @@ QBoxLayout* FilePanelWidget::CreatePanel()
 {
 	// navigate bar
 	QHBoxLayout* naviLayout = new QHBoxLayout;
-	QLineEdit* edit = new QLineEdit;
-	QPushButton* btnUp = new QPushButton(QApplication::style()->standardIcon(QStyle::StandardPixmap::SP_ArrowUp), "");
-	naviLayout->addWidget(btnUp);
-	naviLayout->addWidget(edit);
+	
+	static auto iconUp = QApplication::style()->standardIcon(QStyle::StandardPixmap::SP_ArrowUp);
+	btnUp_ = new QPushButton(iconUp, "");
+	naviLayout->addWidget(btnUp_);
 
-	QTabWidget* tabwidget = new QTabWidget;
-	CreateFileView(tabwidget);
-	connect(tabwidget, SIGNAL(tabBarDoubleClicked(int)), this, SLOT(onTabBarClicked(int)));
+	editNavi_ = new QLineEdit;
+	editNavi_->setText(qApp->applicationDirPath());
+	naviLayout->addWidget(editNavi_);
+
+	connect(btnUp_, &QPushButton::clicked, [this] 
+	{
+		QString dir = editNavi_->text();
+		dir.truncate(dir.lastIndexOf('/'));
+		NavigateTo(dir);
+	});
+
+	// tabwidget
+	tabWidget_ = new QTabWidget;
+	CreateFileView(tabWidget_);
+	connect(tabWidget_, SIGNAL(tabBarDoubleClicked(int)), this, SLOT(onTabBarClicked(int)));
 
 	QVBoxLayout* layout = new QVBoxLayout;
 	layout->setSpacing(2);
 	layout->addLayout(naviLayout);
-	layout->addWidget(tabwidget);
+	layout->addWidget(tabWidget_);
 	return layout;
 }
 
@@ -51,66 +59,80 @@ QAbstractItemView* FilePanelWidget::CreateFileView(QTabWidget* tabWidget)
 	view->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
 	connect(view, SIGNAL(doubleClicked(const QModelIndex&)), this, SLOT(onFileViewDoubleClicked(const QModelIndex&)));
 
-	mapModel2Data[model].view = view;
-	mapModel2Data[model].editNavi = nullptr;
+	mapModel2Data_[model].view = view;
 
 	auto icon = QApplication::style()->standardIcon(QStyle::StandardPixmap::SP_DirIcon);
 	tabWidget->addTab(view, icon, model->rootDirectory().dirName());
 
 	return view;
 }
-
-void FilePanelWidget::NavigateTo(const QString& dir)
+void FilePanelWidget::NavigateTo(const QString& path)
 {
-
-}
-
-void FilePanelWidget::onFileViewDoubleClicked(const QModelIndex& index)
-{
-	auto cmodel = index.model();
-	if (cmodel == nullptr)
+	if(!QDir(path).exists())
 	{
 		return;
 	}
-	
-	auto model = const_cast<QAbstractItemModel*>(cmodel);
-	auto fileSysModel = dynamic_cast<QFileSystemModel*>(model);
+
+	auto curWidget = tabWidget_->currentWidget();
+	QAbstractItemView* view = dynamic_cast<QAbstractItemView*>(curWidget);
+	if (view == nullptr)
+	{
+		return;
+	}
+
+	auto fileSysModel = dynamic_cast<QFileSystemModel*>(view->model());
 	if (fileSysModel == nullptr)
 	{
 		return;
 	}
 
-	if (mapModel2Data.contains(model))
+	view->setRootIndex(fileSysModel->setRootPath(path));
+
+	bool isFile = false;
+	QFileInfo finfo(path);
+	QString absDirName = finfo.absoluteFilePath();
+	if (!finfo.isDir())
 	{
-		auto& data = mapModel2Data.value(model);
-		auto view = data.view;
-		auto path = fileSysModel->filePath(index);
-		view->setRootIndex(fileSysModel->setRootPath(path));
-	
-		bool isFile = false;
-		QFileInfo finfo(path);
-		QString absDirName = finfo.absoluteFilePath();
-		if (!finfo.isDir())
-		{
-			isFile = true;
-			absDirName = finfo.absolutePath();
-		}
+		isFile = true;
+		absDirName = finfo.absolutePath();
+	}
 
-		if (data.editNavi)
-		{
-			data.editNavi->setText(absDirName);
-		}
+	editNavi_->setText(absDirName);
 
-		if (!isFile)
+	if (!isFile)
+	{
+		auto curDirName = QDir(path).dirName();
+		auto tab = dynamic_cast<QTabWidget*>(view->parent()->parent());
+		if (tab != nullptr)
 		{
-			auto curDirName = QDir(path).dirName();
-			auto tab = dynamic_cast<QTabWidget*>(view->parent()->parent());
-			if (tab != nullptr)
-			{
-				tab->setTabText(tab->indexOf(view), curDirName);
-			}
+			tab->setTabText(tab->indexOf(view), curDirName);
 		}
 	}
+
+	// change dir
+	editNavi_->setText(path);
+}
+
+void FilePanelWidget::NavigateTo(const QModelIndex& index)
+{
+	auto cmodel = index.model();
+	auto model = const_cast<QAbstractItemModel*>(cmodel);
+	auto fileSysModel = dynamic_cast<QFileSystemModel*>(model);
+	if (!mapModel2Data_.contains(model) || fileSysModel == nullptr)
+	{
+		return;
+	}
+
+	auto& data = mapModel2Data_.value(model);
+	auto view = data.view;
+	auto path = fileSysModel->filePath(index);
+
+	NavigateTo(path);
+}
+
+void FilePanelWidget::onFileViewDoubleClicked(const QModelIndex& index)
+{
+	NavigateTo(index);
 }
 
 void FilePanelWidget::onTabBarClicked(int index)
