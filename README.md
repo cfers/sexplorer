@@ -1,6 +1,6 @@
 # sexplorer
 sexy explorer? or it is a simple explorer!
-the propouse is to create one simple file explorer for all platform!
+the purpose is to create one simple file explorer for all platform!
 ![](snap.png)
 ## base information
 |||
