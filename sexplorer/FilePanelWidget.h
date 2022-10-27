@@ -1,7 +1,5 @@
 ﻿#pragma once
-#include <memory>
-#include <vector>
-#include <QtWidgets/QMainWindow>
+#include <QMap>
 #include "ui_FilePanelWidget.h"
 
 class QBoxLayout;

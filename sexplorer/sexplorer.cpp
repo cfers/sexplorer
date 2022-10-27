@@ -1,20 +1,14 @@
 ﻿#include "sexplorer.h"
 #include "FilePanelWidget.h"
-#include <assert.h>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
-#include <QListView>
-#include <QTreeView>
-#include <QFileSystemModel>
-#include <QDirModel>
-#include <QModelIndex>
-#include <QLineEdit>
-#include <QPushButton>
+#include <QFile>
 
 sexplorer::sexplorer(QWidget *parent)
     : QMainWindow(parent)
 {
     ui.setupUi(this);
+	ui.statusBar->setMaximumHeight(10);
 
 	// load qss
 	QFile f(":/sexplorer/res/blank-1.qss");

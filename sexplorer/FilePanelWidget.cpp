@@ -3,7 +3,6 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QTreeView>
-#include <QFileSystemModel>
 #include <QLineEdit>
 #include <QPushButton>
 
