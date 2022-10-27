@@ -36,6 +36,7 @@ sexplorer::sexplorer(QWidget *parent)
 	auto filePanelsLayout = new QHBoxLayout;
 	filePanelsLayout->addWidget(new FilePanelWidget);
 	filePanelsLayout->addWidget(new FilePanelWidget);
+	filePanelsLayout->setSpacing(1);
 	mainlayout->addLayout(filePanelsLayout);
 	
 	// resize

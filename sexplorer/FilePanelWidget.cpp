@@ -12,6 +12,8 @@ FilePanelWidget::FilePanelWidget(QWidget *parent)
 {
     ui.setupUi(this);
 	auto layout = new QVBoxLayout;
+	layout->setSpacing(1);
+	layout->setMargin(2);
 	setLayout(layout);
 	layout->addLayout(CreatePanel());
 }
