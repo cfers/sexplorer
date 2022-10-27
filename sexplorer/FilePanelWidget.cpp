@@ -5,6 +5,8 @@
 #include <QTreeView>
 #include <QLineEdit>
 #include <QPushButton>
+#include <QDesktopServices>
+#include <QUrl>
 
 FilePanelWidget::FilePanelWidget(QWidget *parent)
     : QWidget(parent)
@@ -129,6 +131,20 @@ void FilePanelWidget::NavigateTo(const QModelIndex& index)
 	}
 
 	auto path = fileSysModel->filePath(index);
+
+	if (QFileInfo(path).isFile())
+	{
+#ifdef Q_OS_WIN32
+		auto url = QString("file:///%1").arg(path);
+		bool is_open = QDesktopServices::openUrl(QUrl(url, QUrl::TolerantMode));
+#endif
+
+#ifdef Q_OS_LINUX 
+		QString  cmd= QString("xdg-open ")+ m_szHelpDoc;　　　　　　　    
+		system(cmd.toStdString().c_str());
+#endif
+		return;
+	}
 
 	NavigateTo(path);
 }
